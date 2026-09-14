@@ -19,3 +19,4 @@ jupyter>=1.0.0
 # component; full CRS/geospatial handling belongs to the downstream
 # network-reconstruction pipeline).
 rasterio>=1.3.0; platform_system != "Windows"
+opencv-python>=4.8.0

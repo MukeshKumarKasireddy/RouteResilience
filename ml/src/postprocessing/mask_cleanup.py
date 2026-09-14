@@ -1,12 +1,10 @@
 """
 Mask cleanup foundation (Part 1).
-
 Implements basic morphological cleanup of binary road masks:
     - thresholding
     - morphological opening (removes small noise specks)
     - morphological closing (fills small gaps/holes)
     - small connected-component removal
-
 This module is intentionally minimal for Part 1. Full occlusion/gap
 *recovery* (e.g. reconnecting roads broken by clouds, shadows, or trees)
 is out of scope here and will be implemented in Part 2. Keeping cleanup
@@ -39,7 +37,6 @@ def morphological_closing(mask: np.ndarray, kernel_size: int = 3) -> np.ndarray:
 
 def remove_small_components(mask: np.ndarray, min_size: int = 30) -> np.ndarray:
     """Remove connected components smaller than `min_size` pixels.
-
     Helps eliminate spurious tiny blobs that are not meaningful road
     segments, without attempting to reconnect or recover real gaps.
     """
@@ -62,7 +59,6 @@ def clean_mask(
     min_component_size: int = 30,
 ) -> np.ndarray:
     """Run the full Part-1 cleanup foundation on a mask.
-
     Args:
         probability_or_binary_mask: either a float probability mask (0-1)
             or an already-binary mask. If `threshold` is None, the input
@@ -73,7 +69,6 @@ def clean_mask(
         opening_kernel: structuring element size for morphological opening.
         closing_kernel: structuring element size for morphological closing.
         min_component_size: minimum connected-component pixel area to keep.
-
     Returns:
         A cleaned binary mask (uint8, values 0/1) of the same shape.
     """
