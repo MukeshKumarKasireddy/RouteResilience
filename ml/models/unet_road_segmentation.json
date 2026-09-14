@@ -1,0 +1,5 @@
+{
+  "best_val_loss": 0.2900502681732178,
+  "epochs_run": 10,
+  "checkpoint": "C:\\Users\\barik\\PycharmProjects\\RouteResilience\\ml\\models\\unet_road_segmentation.pth"
+}
