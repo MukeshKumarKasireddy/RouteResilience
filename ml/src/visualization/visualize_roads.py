@@ -6,27 +6,19 @@ import rasterio
 from rasterio.plot import show
 
 
-# Project root:
-# RouteResilience/
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
+DATA_DIR = PROJECT_ROOT / "ml" / "data" / "raw" / "spacenet_mumbai"
+
 IMAGE_PATH = (
-    PROJECT_ROOT
-    / "ml"
-    / "data"
-    / "raw"
-    / "spacenet_mumbai"
-    / "chip0"
+    DATA_DIR
+    / "PS-RGB"
     / "SN5_roads_train_AOI_8_Mumbai_PS-RGB_chip0.tif"
 )
 
 ROADS_PATH = (
-    PROJECT_ROOT
-    / "ml"
-    / "data"
-    / "raw"
-    / "spacenet_mumbai"
-    / "chip0"
+    DATA_DIR
+    / "geojson_roads_speed"
     / "SN5_roads_train_AOI_8_Mumbai_geojson_roads_speed_chip0.geojson"
 )
 
@@ -44,10 +36,8 @@ def create_overlay():
     with rasterio.open(IMAGE_PATH) as src:
         fig, ax = plt.subplots(figsize=(10, 10))
 
-        # Display RGB satellite imagery.
         show(src, ax=ax)
 
-        # Plot road network on top of the imagery.
         roads.plot(
             ax=ax,
             linewidth=1.5,
@@ -69,10 +59,14 @@ def main():
     """Run visualization."""
 
     if not IMAGE_PATH.exists():
-        raise FileNotFoundError(f"Satellite image not found: {IMAGE_PATH}")
+        raise FileNotFoundError(
+            f"Satellite image not found: {IMAGE_PATH}"
+        )
 
     if not ROADS_PATH.exists():
-        raise FileNotFoundError(f"Road GeoJSON not found: {ROADS_PATH}")
+        raise FileNotFoundError(
+            f"Road GeoJSON not found: {ROADS_PATH}"
+        )
 
     create_overlay()
 

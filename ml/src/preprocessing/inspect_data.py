@@ -8,23 +8,15 @@ import rasterio
 # RouteResilience/
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
-IMAGE_PATH = (
-    PROJECT_ROOT
-    / "ml"
-    / "data"
-    / "raw"
-    / "spacenet_mumbai"
-    / "chip0"
-    / "SN5_roads_train_AOI_8_Mumbai_PS-RGB_chip0.tif"
-)
+DATA_DIR = PROJECT_ROOT / "ml" / "data" / "raw" / "spacenet_mumbai"
+
+IMAGE_DIR = DATA_DIR / "PS-RGB"
+ROADS_DIR = DATA_DIR / "geojson_roads_speed"
+
+IMAGE_PATH = IMAGE_DIR / "SN5_roads_train_AOI_8_Mumbai_PS-RGB_chip0.tif"
 
 ROADS_PATH = (
-    PROJECT_ROOT
-    / "ml"
-    / "data"
-    / "raw"
-    / "spacenet_mumbai"
-    / "chip0"
+    ROADS_DIR
     / "SN5_roads_train_AOI_8_Mumbai_geojson_roads_speed_chip0.geojson"
 )
 
@@ -64,10 +56,14 @@ def main():
     """Run all data inspection checks."""
 
     if not IMAGE_PATH.exists():
-        raise FileNotFoundError(f"Satellite image not found: {IMAGE_PATH}")
+        raise FileNotFoundError(
+            f"Satellite image not found: {IMAGE_PATH}"
+        )
 
     if not ROADS_PATH.exists():
-        raise FileNotFoundError(f"Road GeoJSON not found: {ROADS_PATH}")
+        raise FileNotFoundError(
+            f"Road GeoJSON not found: {ROADS_PATH}"
+        )
 
     inspect_image()
     inspect_roads()
